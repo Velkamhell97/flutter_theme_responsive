@@ -106,42 +106,44 @@ class _RotationSlideWidgetState extends State<RotationSlideWidget> with SingleTi
     }
   }
 
-  static const _offset1 = 50;
-  static const _offset2 = _offset1 + 50;
-  static const _offset3 = _offset2 - _offset1;
-
   @override
   Widget build(BuildContext context) {
 
     return Row(
       children: [
-        Flexible(
+        Expanded(
           flex: 3,
-          child: AnimatedBuilder( //-Tambien se peude un animatedRotate
-            animation: _controller,
-            builder: (_, child) {
-              final t1 = _offset1 * _traslation1.value;
-              final t2 = _offset2 * _traslation2.value;
-              final t3 = _offset3 * _traslation3.value;
-
-              return Transform.translate(
-                offset: Offset(t1 - t2 + t3, 0.0),
-                child: Transform.rotate(
-                  angle: 4 * pi * _rotation.value,
-                  child: child
+          child: LayoutBuilder( //Para cambios de portrait
+            builder: (context, constraints) {
+              final width = constraints.maxWidth;
+              
+              return AnimatedBuilder( //-Tambien se peude un animatedRotate
+                animation: _controller,
+                builder: (_, child) {
+                  final t1 = (width * 0.4) * _traslation1.value;
+                  final t2 = (width * 0.7) * _traslation2.value;
+                  final t3 = (width * 0.3) * _traslation3.value;
+              
+                  return Transform.translate(
+                    offset: Offset(t1 - t2 + t3, 0.0),
+                    child: Transform.rotate(
+                      angle: 4 * pi * _rotation.value,
+                      child: child
+                    ),
+                  );
+                },
+                child: const Center(
+                  child: Rectangle(
+                    width: 50,
+                    height: 50,
+                  ),
                 ),
               );
             },
-            child: const Center(
-              child: Rectangle(
-                width: 50,
-                height: 50,
-              ),
-            ),
           ),
         ),
         Flexible(
-          flex: 1,
+          flex: 2,
           child: Center(
             child: PlayButton(
               onPressed: _animate

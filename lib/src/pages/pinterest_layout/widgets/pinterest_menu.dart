@@ -80,10 +80,12 @@ class _StaggeredGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(5),
       child: StaggeredGrid.count(        
-        crossAxisCount: 4,
+        crossAxisCount: landscape ? 6 : 4,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         children: List.generate(30, (index) {

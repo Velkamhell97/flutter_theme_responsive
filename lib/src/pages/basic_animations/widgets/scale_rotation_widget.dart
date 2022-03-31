@@ -95,7 +95,7 @@ class _ScaleRotationWidgetState extends State<ScaleRotationWidget> with SingleTi
           ),
         ),
         Flexible(
-          flex: 1,
+          flex: 2,
           child: Center(
             child: PlayButton(
               onPressed: _animate

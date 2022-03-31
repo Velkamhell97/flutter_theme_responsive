@@ -73,7 +73,7 @@ class _FadeRotationWidgetState extends State<FadeRotationWidget> with SingleTick
           ),
         ),
         Flexible(
-          flex: 1,
+          flex: 2,
           child: Center(
             child: PlayButton(
               onPressed: _animate

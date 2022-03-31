@@ -32,23 +32,67 @@ class _CircularProgressHomeState extends State<CircularProgressHome> {
     return Scaffold(
       appBar: landscape ? null : AppBar(title: const Text('Circular Progress App')),
       body: Center(
-        // child: SizedBox(
-        //   width: 100,
-        //   height: 100,
-        //   child: AnimatedCircularProgress( //-> Con TweenAnimationBuilder
-        //     percentage: 50,
-        //   ),
-        // ),
-        child: SizedBox(
-          width: 100,
-          height: 100,
-          child: ControllerCircularProgress(  //-> Con AnimatedBuilder
-            percentage: _percentage,
-            innerStrokeColor: Colors.grey,
-            innerStrokeWidth: 2,
-            outerStrokeColor: Colors.green,
-            outerStrokeWidth: 5,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: ControllerCircularProgress(  //-> Con AnimatedBuilder
+                    percentage: _percentage,
+                    innerStrokeColor: Colors.grey,
+                    innerStrokeWidth: 2,
+                    outerStrokeColor: Colors.green,
+                    outerStrokeWidth: 5,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: ControllerCircularProgress(  //-> Con AnimatedBuilder
+                    percentage: _percentage,
+                    innerStrokeColor: Colors.grey,
+                    innerStrokeWidth: 2,
+                    outerStrokeColor: Colors.green,
+                    outerStrokeWidth: 5,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: ControllerCircularProgress(  //-> Con AnimatedBuilder
+                    percentage: _percentage,
+                    innerStrokeColor: Colors.grey,
+                    innerStrokeWidth: 2,
+                    outerStrokeColor: Colors.green,
+                    outerStrokeWidth: 5,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: ControllerCircularProgress(  //-> Con AnimatedBuilder
+                    percentage: _percentage,
+                    innerStrokeColor: Colors.grey,
+                    innerStrokeWidth: 2,
+                    outerStrokeColor: Colors.green,
+                    outerStrokeWidth: 5,
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(

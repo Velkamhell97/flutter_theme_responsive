@@ -34,19 +34,15 @@ class MyAppState extends State<MyApp> {
           theme: theme.data,
           home: Builder(
             builder: (context) {
-              final Size size = MediaQuery.of(context).size;
+              final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
               
-              if(size.width > 500) {
-                return ThemeProviderTabletHome(
-                  themeNotifier: _themeNotifier,
-                  routeNotifier: _routeNotifier,
-                );
-              } else {
-                return ThemeProviderHome(
-                  themeNotifier: _themeNotifier,
-                  routeNotifier: _routeNotifier,
-                );
-              }
+              return landscape ? ThemeProviderTabletHome(
+                themeNotifier: _themeNotifier,
+                routeNotifier: _routeNotifier,
+              ) : ThemeProviderHome(
+                themeNotifier: _themeNotifier,
+                routeNotifier: _routeNotifier,
+              );
             },
           )
         );

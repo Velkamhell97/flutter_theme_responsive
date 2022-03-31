@@ -29,13 +29,12 @@ class RoutesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = themeNotifier.value.data.colorScheme.primary;
     final secondaryColor = themeNotifier.value.data.colorScheme.secondary;
 
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
       separatorBuilder: (context, index) {
-        return Divider(color: primaryColor, height: 3);
+        return const Divider(color: Colors.grey, height: 3);
       },
       itemCount: _routes.length,
       itemBuilder: (context, index) {

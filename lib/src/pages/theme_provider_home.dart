@@ -18,14 +18,12 @@ class ThemeProviderHome extends StatelessWidget {
   Widget build(BuildContext context) {
     //-Por alguna razon esto hace que se renderice mas veces como un listen en true
     // final backgroundColor = Theme.of(context).colorScheme.secondary;
-    final backgroundColor = themeNotifier.value.data.colorScheme.secondary;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
         title: const Text('Diseños en flutter'),
         centerTitle: true,
-        elevation: 0.0,
+        elevation: 3.0,
       ),
       drawer: AppDrawer(
         themeNotifier: themeNotifier,

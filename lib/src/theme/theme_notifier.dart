@@ -18,16 +18,18 @@ abstract class ThemeState {
   ThemeState({this.mode}){
     if(mode == null){
       data = ThemeData.dark().copyWith(
-          colorScheme: const ColorScheme.dark(
-            primary: _primaryColor,
-            secondary: _secondaryColor,
-          ),
-          // primaryColor: Colors.grey,
-          scaffoldBackgroundColor: _scaffoldColor,
-          drawerTheme: const DrawerThemeData(
-            backgroundColor: _drawerColor,
-          ),
-        );
+        appBarTheme: const AppBarTheme(
+          backgroundColor: _scaffoldColor
+        ),
+        colorScheme: const ColorScheme.dark(
+          primary: _primaryColor,
+          secondary: _secondaryColor,
+        ),
+        scaffoldBackgroundColor: _scaffoldColor,
+        drawerTheme: const DrawerThemeData(
+          backgroundColor: _drawerColor,
+        ),
+      );
     } else if(mode == ThemeMode.light){
       data = ThemeData.light();
     } else if(mode == ThemeMode.dark){

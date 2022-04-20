@@ -114,8 +114,8 @@ class _MultiAnimationPageState extends State<MultiAnimationPage> with SingleTick
       ),
       floatingActionButton: TweenAnimationBuilder<double>(
         duration: const Duration(milliseconds: 1000),
-        //*Por alguna razon el elastic afecta la direccion
-        curve: Curves.elasticOut,
+        /// Por alguna razon el elastic afecta la direccion
+        curve: const ElasticOutCurve(0.6),
         tween: Tween(begin: 1, end: 0),
         builder: (context, value, child) {
           return Transform.translate(

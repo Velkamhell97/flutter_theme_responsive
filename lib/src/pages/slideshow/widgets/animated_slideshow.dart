@@ -40,6 +40,7 @@ class _SlideShowWidgetState extends State<SlideShowWidget> {
                 dotsPadding: widget.dotsPadding,
               ),
 
+            /// Aunque no es necesario que se redibuje con el ValueListenableBuilder (solo los dots) no supone un problema
             Expanded(
               child: _Slides(
                 slides: widget.slides,
@@ -64,6 +65,7 @@ class _SlideShowWidgetState extends State<SlideShowWidget> {
   }
 }
 
+/// Recordar que la ventaja de un StafullWidget esque almacena el estado solo se dispara el build con un cambio
 class _Slides extends StatefulWidget {
   final List<Widget> slides;
   final ValueChanged<int> onSlideChange;
@@ -98,7 +100,7 @@ class __SlidesState extends State<_Slides> {
       },
       itemCount: widget.slides.length,
       itemBuilder: (context, index) {
-        //*Recordar que el padding de los page siempre sobre el elemento, si se coloca sobre el pageview, puede dar errores
+        /// El padding de los page siempre sobre el elemento, si se coloca sobre el pageview, puede dar errores
         return Padding(
           padding: const EdgeInsets.all(30.0),
           child: widget.slides[index]
@@ -134,10 +136,11 @@ class _Dots extends StatelessWidget {
         children: List.generate(slideShowPages, (index) {
           final Color color = index == activeSlide ? dotsColor : Colors.grey;
           
+          /// Obtenemos la mitad de cada dimension del dot
           final offset = Point(dotSize / 2, dotSize / 2);
           final double scale = index == activeSlide ? 1.25 : 1.0;
           
-          //-Para alterar el tamaño con las dimensiones
+          /// Con esto aumentamos o reducimos el tamaño del row con lo que quizas no se obtenga el efecto deseado
           // final double size = index == activeSlide ? dotSize : 10.0;
 
           return Padding(
@@ -148,7 +151,8 @@ class _Dots extends StatelessWidget {
               // width: size,
               height: dotSize,
               width: dotSize,
-              //*Las traslaciones para centrar una transformacion de un animatedContainer
+              /// Las traslaciones para centrar una transformacion de un animatedContainer los valores
+              /// de tralsacion son iguales a la mitad del tamaño del container (en cada eje)
               transform: Matrix4.identity()
               ..translate(offset.x, offset.y)
               ..scale(scale)

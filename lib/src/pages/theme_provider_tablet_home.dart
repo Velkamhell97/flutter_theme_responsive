@@ -19,11 +19,10 @@ class ThemeProviderTabletHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = Theme.of(context).colorScheme.secondary;
+    final backgroundColor = themeNotifier.value.data.colorScheme.secondary;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
         title: const Text('Diseños en flutter tablet'),
         centerTitle: true,
         elevation: 0.0,
@@ -51,6 +50,7 @@ class ThemeProviderTabletHome extends StatelessWidget {
           ),
           Expanded(
             flex: 5,
+            /// Este es el unico lugar que utiliza este notifier
             child: ValueListenableBuilder<int>(
               valueListenable: routeNotifier,
               builder: (_, routeIndex, __) {

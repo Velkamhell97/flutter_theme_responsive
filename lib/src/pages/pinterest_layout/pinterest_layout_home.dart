@@ -21,17 +21,15 @@ class _PinterestLayoutHomeState extends State<PinterestLayoutHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: PinterestMenu(
-          buttons: [
-            PinterestButton(icon: _icons[0], onPressed: (index) => print('Button $index')),
-            PinterestButton(icon: _icons[1],),
-            PinterestButton(icon: _icons[2], onPressed: (index) => print('Button $index')),
-            PinterestButton(icon: _icons[3],),
-          ],
-          activeColor: Colors.indigo,
-          // inactiveColor: Colors.grey,
-        )
+      body: PinterestMenu(
+        buttons: [
+          PinterestButton(icon: _icons[0], onPressed: (index) => print('Button $index')),
+          PinterestButton(icon: _icons[1],),
+          PinterestButton(icon: _icons[2], onPressed: (index) => print('Button $index')),
+          PinterestButton(icon: _icons[3],),
+        ],
+        activeColor: Colors.indigo,
+        // inactiveColor: Colors.grey,
       ),
     );
   }

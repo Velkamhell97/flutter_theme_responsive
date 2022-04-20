@@ -19,20 +19,17 @@ class MyAppState extends State<MyApp> {
   final ThemeNotifier _themeNotifier = ThemeNotifier();
   final ValueNotifier<int> _routeNotifier = ValueNotifier(0);
 
-  //Como no se necesita renderizar nada podemos setear esta variable global para reemplzar el provider
-  int routeIndex = 0;
-
   @override
   Widget build(BuildContext context) {
+    /// Los ValueListenableBuilder pueden escuchar el mismo ValueNotifier
     return ValueListenableBuilder<ThemeState>(
       valueListenable: _themeNotifier,
       builder: (_, theme, __) {
-
         return MaterialApp(
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: theme.data,
-          home: Builder(
+          home: Builder( 
             builder: (context) {
               final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
               

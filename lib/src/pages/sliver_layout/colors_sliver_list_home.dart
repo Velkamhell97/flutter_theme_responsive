@@ -40,7 +40,7 @@ class ColorsSliverListHome extends StatelessWidget {
           CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
-              //*El problema del appbar esque el al terminar de comprimirse siempre termina en un appbar normal
+              /// El problema del appbar esque el al terminar de comprimirse siempre termina en un appbar normal
               // SliverAppBar(
               //   backgroundColor: Colors.transparent,
               //   expandedHeight: 200,
@@ -52,9 +52,9 @@ class ColorsSliverListHome extends StatelessWidget {
               //   ),
               // ),
               const SliverPersistentHeader(
-                //*Con esta opcion el appbar aparece cuando se hace scroll hacia arriba
+                /// Con esta opcion el appbar aparece cuando se hace scroll hacia arriba
                 floating: true,
-                //* con esta se mantiene en todo momento en su minHeight
+                /// Con esta se mantiene en todo momento en su minHeight
                 pinned: true,
                 delegate: CustomSliverHeader(
                   maxHeight: 200,
@@ -62,6 +62,7 @@ class ColorsSliverListHome extends StatelessWidget {
                 )
               ),
               SliverPadding(
+                /// El height del bottom es para que el boton de la esquina no quede por encima de el ultimo item
                 padding: const EdgeInsets.fromLTRB(10.0, 20.0, 10.0, _buttonHeight),
                 sliver: SliverFixedExtentList(
                   itemExtent: _itemHeight + _tileGap,
@@ -90,7 +91,7 @@ class ColorsSliverListHome extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               shadows: [
                                 BoxShadow(
-                                  color: Colors.black,
+                                  color: Colors.black54,
                                   blurRadius: 10,
                                   spreadRadius: 2,
                                 )

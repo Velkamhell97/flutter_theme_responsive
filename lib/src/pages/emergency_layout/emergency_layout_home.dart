@@ -13,7 +13,7 @@ class EmrgencyLayoutHome extends StatelessWidget {
 
     final headerHeight = size.height * 0.25;
 
-    return  Scaffold(
+    return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
@@ -59,6 +59,7 @@ class _EmergencyAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// utilizamos para quitar el icono del AppBar
     final lanscape = MediaQuery.of(context).orientation == Orientation.landscape;
     final MediaQueryData mq = MediaQuery.of(context);
 
@@ -90,7 +91,6 @@ class _EmergencyAppBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: mq.padding.top),
-                  //no se pueden instanciar por fuera por el constructor constante
                   Text(title, style: TextStyle(color: foregroundColor, fontSize: 18)),
                   const SizedBox(height:5),
                   Text(subtitle, style: TextStyle(color: foregroundColor, fontSize: 22, fontWeight: FontWeight.bold)),
@@ -115,9 +115,10 @@ class _EmergencyList extends StatelessWidget {
   static const _tiles = EmergencyTileModel.tiles;
   static const _tileGap= 20.0;
 
+  /// Aqui no hay cambios con el cambio de orientacion
   @override
   Widget build(BuildContext context) {
-    //-Se debe usar un builder para el efecto de las animaciones
+    /// Se debe usar un builder para el efecto de las animaciones
     return ListView.builder(
       itemExtent: 120,
       physics: const BouncingScrollPhysics(),
@@ -128,6 +129,7 @@ class _EmergencyList extends StatelessWidget {
     
         return Padding(
           padding: const EdgeInsets.only(bottom: _tileGap),
+          /// A medida que van entrando se van renderizando y animando, recordar usar el child para optimizar
           child: TweenAnimationBuilder<double>(
             tween: Tween(begin: -1, end: 0),
             duration: kThemeAnimationDuration,
@@ -140,6 +142,8 @@ class _EmergencyList extends StatelessWidget {
                 ),
               );
             },
+            /// Las clases no deben contener los metodos onTap o funciones, esto debe tenerlo el widget
+            /// aqui tenemos disponible el index de cada card por si se necesita
             child: EmergencyCard(
               tile: tile,
               onTap: () {},

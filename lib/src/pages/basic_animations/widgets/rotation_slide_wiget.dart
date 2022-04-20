@@ -25,7 +25,7 @@ class _RotationSlideWidgetState extends State<RotationSlideWidget> with SingleTi
   static const _duration2 = 700;
   static const _stop2 = 500;
   static const _duration3 = 700;
-  static const _stop3 = 0;
+  // static const _stop3 = 0; /// Para agregar un delay al final
 
   static const _duration = _duration1 + _stop1 + _duration2 + _stop2 + _duration3;
 
@@ -98,11 +98,7 @@ class _RotationSlideWidgetState extends State<RotationSlideWidget> with SingleTi
       await _controller.forward();
       _controller.reset();
     } else {
-      if(_controller.isCompleted){
-        _controller.reverse();
-      } else {
-        _controller.forward();
-      }
+      _controller.isCompleted ? _controller.reverse() : _controller.forward();
     }
   }
 

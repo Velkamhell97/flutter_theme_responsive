@@ -10,6 +10,7 @@ class BasicAnimationsHome extends StatelessWidget {
     final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
+      /// Hacemos similar al anterior, mostramos o no el AppBar y cambiamos el List por un Grid
       appBar: landscape ? null : AppBar(title: const Text('Basic Animations App')),
       body: landscape ? const _AnimationsGrid() : const _AnimationsList()
     );
@@ -75,12 +76,14 @@ class _AnimationsGrid extends StatelessWidget {
 
     return Center(
       child: GridView(
-        shrinkWrap: true,
+        shrinkWrap: true, ///Para usar el center y que no ocupe todo el espacio disponible
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisExtent: 100
         ),
         children: [
+          /// Los constrain ayuda a que el container aumente si height solo si lo necesita
+          /// pero no habra overflow si se setea un minHeigh mas bajo que el real height
           ConstrainedBox(
             constraints: BoxConstraints(
               minHeight: size.height * 0.15

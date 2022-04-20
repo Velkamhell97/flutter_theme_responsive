@@ -12,26 +12,28 @@ class RoundedPainter extends CustomPainter {
     final paint = Paint()
     ..color = color;
 
-    const radius = 0.15;
-    final round  = Size(size.width * radius, size.height * radius);
+    /// Forma 1 de hacer un shape con bordes redondeados con quadraticBeizer
+    // const radius = 0.15;
+    // final round  = Size(size.width * radius, size.height * radius);
 
-    final corner1 = Size(size.width, size.height  - round.height);
-    final corner2 = Size(round.width, size.height);
+    // final corner1 = Size(size.width, size.height  - round.height);
+    // final corner2 = Size(round.width, size.height);
 
-    final path = Path()
-    ..lineTo(size.width, 0)
+    // final path = Path()
+    // ..lineTo(size.width, 0)
 
-    ..lineTo(corner1.width, corner1.height)
-    //El punto de control se encuentra en las esquinas
-    ..relativeQuadraticBezierTo(0, round.height, -round.width, round.height)
+    // ..lineTo(corner1.width, corner1.height)
+    // //El punto de control se encuentra en las esquinas
+    // ..relativeQuadraticBezierTo(0, round.height, -round.width, round.height)
 
-    ..lineTo(corner2.width, corner2.height)
-    ..relativeQuadraticBezierTo(-round.width, 0, -round.width, -round.height)
+    // ..lineTo(corner2.width, corner2.height)
+    // ..relativeQuadraticBezierTo(-round.width, 0, -round.width, -round.height)
 
-    ..close();
+    // ..close();
 
     // canvas.drawPath(path, paint);
 
+    /// Forma 2 de hacer un shape con bordes redondeados con un RRect
     const borderRadius = 60.0;
     final rect = const Offset(0,0) & size;
 

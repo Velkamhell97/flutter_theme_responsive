@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:ui';
-import 'package:flutter/material.dart';
 
 class ControllerCircularProgress extends StatefulWidget {
   /// Value between 0 and 100
@@ -50,7 +50,10 @@ class _ControllerCircularProgressState extends State<ControllerCircularProgress>
   
   @override
   Widget build(BuildContext context) {
-    _controller.animateTo(widget.percentage / 100, duration: _duration);
+    /// Esperamos el build para empezar la animacion (no se sabe si es mala practica o no)
+    Future.microtask(() {
+      _controller.animateTo(widget.percentage / 100, duration: _duration);
+    });
 
     return Stack(
       children: [
@@ -95,16 +98,17 @@ class _CircularProgressPainter extends CustomPainter {
     this.outerStrokeColor = Colors.blue, 
   }) : super(repaint: animation);
 
-  static const _sweepGradient = SweepGradient(
-    colors: [
-      Color(0xffC012FF),
-      Color(0xff6D05E8),
-      Colors.red,
-    ],
-    tileMode: TileMode.repeated,
-    startAngle: 3 * pi / 2,
-    endAngle: 7 * pi / 2,
-  );
+  /// El sweepGradient es ideal para añadirle gradiente a un shape, pero en este caso se ve mejor el linear
+  // static const _sweepGradient = SweepGradient(
+  //   colors: [
+  //     Color(0xffC012FF),
+  //     Color(0xff6D05E8),
+  //     Colors.red,
+  //   ],
+  //   tileMode: TileMode.repeated,
+  //   startAngle: 3 * pi / 2,
+  //   endAngle: 7 * pi / 2,
+  // );
 
   static const _linearGradient = LinearGradient(
     colors: [
@@ -128,14 +132,14 @@ class _CircularProgressPainter extends CustomPainter {
     final outerPaint = Paint()
     ..color = outerStrokeColor
     ..strokeWidth = outerStrokeWidth
-    ..strokeCap = StrokeCap.round
+    // ..strokeCap = StrokeCap.round
     ..style = PaintingStyle.stroke
     ..shader = _linearGradient.createShader(gradientCircle)
     // ..shader = _sweepGradient.createShader(circle)
     ;
 
-    //-Se le suma un poco por el cap round
-    final angle = lerpDouble(0, (2 * pi) + 0.1, animation.value)!;
+    /// Se le suma un poco por el cap round
+    final angle = lerpDouble(0, (2 * pi), animation.value)!;
 
     canvas.drawArc(circle, 0, 2 * pi, false, innerPaint);
     canvas.drawArc(circle, -pi / 2, angle, false, outerPaint);

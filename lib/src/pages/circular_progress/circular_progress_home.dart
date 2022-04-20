@@ -27,6 +27,7 @@ class _CircularProgressHomeState extends State<CircularProgressHome> {
 
   @override
   Widget build(BuildContext context) {
+    /// Aqui solo se cambia el AppBar se centra con cualquier orientacion
     final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(

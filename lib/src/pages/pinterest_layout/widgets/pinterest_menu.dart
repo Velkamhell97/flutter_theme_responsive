@@ -1,8 +1,8 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/rendering.dart';
 
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PinterestButton {
   final IconData icon;
@@ -33,44 +33,43 @@ class _PinterestMenuState extends State<PinterestMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: _showBottomBarNotifier, 
-      builder: (_, show, __) {
-        return Stack(
-          children: [
-            NotificationListener<UserScrollNotification>(
-              onNotification: (notification) {
-                if(notification.direction == ScrollDirection.reverse && show){
-                  _showBottomBarNotifier.value = false;
-                } else if(notification.direction == ScrollDirection.forward && !show){
-                  _showBottomBarNotifier.value = true;
-                }
-  
-                return true;
-              },
-              child: const _StaggeredGrid()
-            ),
-            Align(
-              alignment: const Alignment(0.0, 0.95),
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 500),
-                child: show ? ValueListenableBuilder<int>(
-                  valueListenable: _optionNotifier, 
-                  builder: (_, current, __) {
-                    return _BottomBar(
-                      buttons: widget.buttons,
-                      activeColor: widget.activeColor,
-                      inactiveColor: widget.inactiveColor,
-                      current: current,
-                      onTap: (index) => _optionNotifier.value = index,
-                    );
-                  }
-                ) : const SizedBox.shrink(),
-              )
+    return Stack(
+      children: [
+        NotificationListener<UserScrollNotification>(
+          onNotification: (notification) {
+            /// Podemos leer el valor de la variable actualizada asi no este dentro de un ValueListenable 
+            final show = _showBottomBarNotifier.value;
+
+            if(notification.direction == ScrollDirection.reverse && show){
+              _showBottomBarNotifier.value = false;
+            } else if(notification.direction == ScrollDirection.forward && !show){
+              _showBottomBarNotifier.value = true;
+            }
+
+            return true;
+          },
+          child: const _StaggeredGrid()
+        ),     
+        Align(
+          alignment: const Alignment(0.0, 0.95),
+          child: ValueListenableBuilder<bool>(
+            valueListenable: _showBottomBarNotifier,
+            builder: (_, show, __) => AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              child: show ? ValueListenableBuilder<int>(
+                valueListenable: _optionNotifier, 
+                builder: (_, current, __) => _BottomBar(
+                  buttons: widget.buttons,
+                  activeColor: widget.activeColor,
+                  inactiveColor: widget.inactiveColor,
+                  current: current,
+                  onTap: (index) => _optionNotifier.value = index,
+                )
+              ) : const SizedBox.shrink()
             )
-          ],
-        );
-      }
+          )
+        )
+      ]
     );
   }
 }
@@ -80,8 +79,10 @@ class _StaggeredGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Cambiamos la distribucion del grid
     final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
+    //La posicion del scroll se mantiene asi alteremos la distribucion
     return SingleChildScrollView(
       padding: const EdgeInsets.all(5),
       child: StaggeredGrid.count(        

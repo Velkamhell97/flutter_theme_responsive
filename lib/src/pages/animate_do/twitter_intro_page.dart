@@ -48,7 +48,7 @@ class _TwitterIntroPageState extends State<TwitterIntroPage> with SingleTickerPr
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _controller.forward(from: 0.0),
+        onPressed: () => _controller.forward(from: 0.0).then((_) => _controller.reset()),
         backgroundColor: Colors.indigo,
         child: const Icon(Icons.play_arrow),
       ),

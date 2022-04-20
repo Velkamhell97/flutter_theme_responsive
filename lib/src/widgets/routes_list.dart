@@ -45,10 +45,12 @@ class RoutesList extends StatelessWidget {
           title: Text(route.title),
           trailing: FaIcon(FontAwesomeIcons.chevronRight, color: secondaryColor),
           onTap: () {
+            /// Si esta en lanscape navegamos
             if(navigate){
               _navigate(context, route.page);
             }
             
+            /// Siempre que toquemos una ruta actualizamos el valor de la ruta actual
             routeNotifier.value = index;
           },
         );

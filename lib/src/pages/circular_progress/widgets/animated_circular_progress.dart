@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:ui';
-import 'package:flutter/material.dart';
 
 class AnimatedCircularProgress extends StatelessWidget {
   final double percentage;
@@ -20,11 +20,11 @@ class AnimatedCircularProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progress = percentage / 100;
-
+    /// El TweenAnimationBuilder no necesita el Future.microtask porque cambia si cambia su end
+    /// El begin al parecer no afecta la animacion sino solo el end, la animacion va del ultimo punto al end
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 300),
-      tween: Tween(begin: progress, end: progress),
+      tween: Tween(begin: 0, end: percentage / 100),
       builder: (context, value, child) {
         return CustomPaint(
           painter: _CircularProgressPainter(

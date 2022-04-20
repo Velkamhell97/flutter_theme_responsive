@@ -19,15 +19,20 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Por alguna razon esto hace que se renderice mas veces como un listen en true
+    //final backgroundColor = Theme.of(context).colorScheme.secondary;
+
+    /// Con esto no sucede lo de arriba, se lee el valor directamente del notifier
     final secondaryColor = themeNotifier.value.data.colorScheme.secondary;
 
+    /// Si se tiene el drawer abierto y se cambia de orientacion este se cierra, (no es un problema)
     return Drawer(
       child: Column(
         children: [
           SizedBox(
             height: headerHeight,
             child: DrawerHeader(
-              child: FittedBox(
+              child: FittedBox(/// Expande al espacio disponible
                 child: CircleAvatar(
                   backgroundColor: secondaryColor,
                   child: const Text('DV'),
@@ -46,32 +51,31 @@ class AppDrawer extends StatelessWidget {
             color: Colors.grey,
             // thickness: 0.5,
           ),
-          ValueListenableBuilder<ThemeState>(
-            valueListenable: themeNotifier, 
-            builder: (_, theme, __) {
-              return Column(
-                children: [
-                  SwitchListTile.adaptive(
-                    secondary: Icon(Icons.lightbulb_outline, color: secondaryColor),
-                    value: theme is DarkThemeState,
-                    activeColor: secondaryColor, 
-                    title: const Text('Dark Mode'),
-                    onChanged: (value) {
-                      themeNotifier.value = value ? DarkThemeState() : LightThemeState();
-                    },
-                  ),
-                  SwitchListTile.adaptive(
-                    secondary: Icon(Icons.add_to_home_screen, color: secondaryColor),
-                    value: theme is CustomThemeState, 
-                    activeColor: secondaryColor,
-                    title: const Text('Custom Theme'),
-                    onChanged: (value) {
-                      themeNotifier.value = value ? CustomThemeState() : LightThemeState();
-                    },
-                  )
-                ],
-              );
-            }
+          /// No necesitamos otro ValueListenableBuilder ya que al cambiar tema se renderiza el mateApp
+          /// por lo que podemos usar su value, ya que el rebuild se hara desde arriba
+          Column(
+            children: [
+              SwitchListTile.adaptive(
+                secondary: Icon(Icons.lightbulb_outline, color: secondaryColor),
+                value: themeNotifier.value is DarkThemeState,
+                activeColor: secondaryColor, 
+                title: const Text('Dark Mode'),
+                /// Al cambiar le value creamos una nueva instancia del ThemeState con el data correspondiente
+                /// y como cambia el state se redispara el ValueNotifier redibujando con el nuevo tema
+                onChanged: (value) {
+                  themeNotifier.value = value ? DarkThemeState() : LightThemeState();
+                },
+              ),
+              SwitchListTile.adaptive(
+                secondary: Icon(Icons.add_to_home_screen, color: secondaryColor),
+                value: themeNotifier.value is CustomThemeState, 
+                activeColor: secondaryColor,
+                title: const Text('Custom Theme'),
+                onChanged: (value) {
+                  themeNotifier.value = value ? CustomThemeState() : LightThemeState();
+                },
+              )
+            ],
           )
         ],
       ),

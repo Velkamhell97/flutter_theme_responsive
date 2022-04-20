@@ -9,6 +9,7 @@ class WavePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    /// Tambien se consiguen efectos interesantes con RadialGradient o SweepGradiant
     const gradient = LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,

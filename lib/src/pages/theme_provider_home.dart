@@ -16,9 +16,6 @@ class ThemeProviderHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //-Por alguna razon esto hace que se renderice mas veces como un listen en true
-    // final backgroundColor = Theme.of(context).colorScheme.secondary;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Diseños en flutter'),
@@ -32,7 +29,6 @@ class ThemeProviderHome extends StatelessWidget {
       body: RoutesList(
         themeNotifier: themeNotifier,
         routeNotifier: routeNotifier,
-
       )
     );
   }

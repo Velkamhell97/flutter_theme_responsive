@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// Creamos un notifier propio para poder crear una variable que tenga el valor antiguo del notifier
+/// con esto evitamos la necesidad de crear StateNotifier o usar Provider
 class _NotificationsNotifier extends ValueNotifier<int> {
   _NotificationsNotifier({int value = 0}) : super(value);
 
   int oldValue = 0;
 
-  //-Para actualizar el valor teniendo en cuenta el anterior, notar como es una funcion que recibe
-  //-Otra funcion y esta tiene un argumento tipo int, devolvemos esta funcion pero con el argumento
-  //-pasado desde aqui
+  /// Para actualizar el valor teniendo en cuenta el anterior, notar como es una funcion que recibe
+  /// Otra funcion y esta tiene un argumento tipo int, devolvemos esta funcion pero con el argumento
+  /// pasado desde aqui
   void update(int Function(int) callback) {
     if(callback(value) < 0) return;
 
@@ -87,6 +89,7 @@ class _BottomNavigationState extends State<_BottomNavigation> {
           widget.onTap!(value);
         }
         
+        /// Como es el unico widget que se redibuja se puede usar un SetState
         setState(() => _activeTab = value);
       },
       items: [
@@ -105,10 +108,12 @@ class _BottomNavigationState extends State<_BottomNavigation> {
                 child: ValueListenableBuilder<int>(
                   valueListenable: widget.notificationNotifier,
                   builder: (_, value, __) {
-                    return Align(child: _AnimatedBadge(
-                      currentCounter: value,
-                      previousCounter: widget.notificationNotifier.oldValue,
-                    ));
+                    return Align(
+                      child: _AnimatedBadge(
+                        currentCounter: value,
+                        previousCounter: widget.notificationNotifier.oldValue,
+                      )
+                    );
                   },
                 ),
               )
@@ -142,7 +147,7 @@ class __AnimatedBadgeState extends State<_AnimatedBadge> with TickerProviderStat
   late final Animation<double> _slideDown;
 
   static const _maxUpper = 8.0;
-  static const _duration = 800;
+  static const _duration = 400;
 
   @override
   void initState() {
@@ -150,7 +155,7 @@ class __AnimatedBadgeState extends State<_AnimatedBadge> with TickerProviderStat
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500)
+      duration: const Duration(milliseconds: _duration)
     );
 
     _slideUp = CurvedAnimation(
@@ -176,10 +181,12 @@ class __AnimatedBadgeState extends State<_AnimatedBadge> with TickerProviderStat
 
     final counter = widget.currentCounter > 99 ? '99+' : widget.currentCounter.toString();
 
+    /// Solo hace la animacion cuando el contador aumenta, no cuando disminuye
     if(widget.currentCounter < widget.previousCounter) {
       return _Badge(text: counter);
     }
 
+    /// La primera animacion deseamos que solo venga de arriba, por lo que su duracion solo sera la de bajada
     if(widget.currentCounter == 1) {
       return TweenAnimationBuilder<Offset>(
         tween: Tween(begin: const Offset(0.0, -_maxUpper), end: const Offset(0.0, 0.0)), 
@@ -190,13 +197,17 @@ class __AnimatedBadgeState extends State<_AnimatedBadge> with TickerProviderStat
       );
     }
 
-    _controller.forward(from: 0.0);
+    /// Una forma de controlar la animacion sin utilizar un callback del padre, siempre que aumente en 1
+    /// y se redibuje iniciara la animacion de 0, esperamos a que termine el build con el microtask
+    Future.microtask(() => _controller.forward(from: 0.0));
 
+    /// Tambien se puede utilizar dos TweenAnimationBuilder
     return AnimatedBuilder(
       animation: _controller,
       child: _Badge(text: counter),
       builder: (context, child) {
         return Transform.translate(
+          /// Se factorizo
           offset: Offset(0.0, -_maxUpper * (_slideUp.value - _slideDown.value)),
           child: child,
         );

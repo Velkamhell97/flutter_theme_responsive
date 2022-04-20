@@ -28,7 +28,6 @@ Demo:
 	<tr>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_1.gif"></td>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_2.gif"></td>
-	
 	</tr>
 </tbody>
 </table>
@@ -43,7 +42,6 @@ Demo:
 	<tr>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_3.gif"></td>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_4.gif"></td>
-	
 	</tr>
 </tbody>
 </table>
@@ -58,7 +56,6 @@ Demo:
 	<tr>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_5.gif"></td>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_6.gif"></td>
-	
 	</tr>
 </tbody>
 </table>
@@ -73,7 +70,6 @@ Demo:
 	<tr>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_7.gif"></td>
 		<td><img src="https://res.cloudinary.com/dwzr9lray/image/upload/v1650434433/flutter_repos/Flutter%20Intermediate/9.%20Theme%20Responsive/theme_responsive_8.gif"></td>
-	
 	</tr>
 </tbody>
 </table>

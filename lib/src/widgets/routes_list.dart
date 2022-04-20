@@ -41,10 +41,14 @@ class RoutesList extends StatelessWidget {
         final route = _routes[index];
 
         return ListTile(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5.0),
           leading: FaIcon(route.icon, color: secondaryColor),
           title: Text(route.title),
           trailing: FaIcon(FontAwesomeIcons.chevronRight, color: secondaryColor),
           onTap: () {
+            /// Para que se cierre el drawer antes de navegar (opcional)
+            if(Navigator.canPop(context)) Navigator.pop(context);
+
             /// Si esta en lanscape navegamos
             if(navigate){
               _navigate(context, route.page);

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'src/theme/theme_notifier.dart';
 import 'src/pages/theme_provider_home.dart';
-import 'src/pages/theme_provider_tablet_home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,12 +30,7 @@ class MyAppState extends State<MyApp> {
           theme: theme.data,
           home: Builder( 
             builder: (context) {
-              final landscape = MediaQuery.of(context).orientation == Orientation.landscape;
-              
-              return landscape ? ThemeProviderTabletHome(
-                themeNotifier: _themeNotifier,
-                routeNotifier: _routeNotifier,
-              ) : ThemeProviderHome(
+              return ThemeProviderHome(
                 themeNotifier: _themeNotifier,
                 routeNotifier: _routeNotifier,
               );
